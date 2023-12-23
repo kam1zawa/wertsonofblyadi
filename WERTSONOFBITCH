@@ -1,0 +1,80 @@
+wait()
+getgenv().i = true
+local lp = game.Players.LocalPlayer
+
+local neededslot = "Slot4"
+local neededslot1 = "SLOT4"
+local neededslot2 = "SLOT 4: "
+local neededstand = "The Waifu Over Heaven(The World Over Heaven)"
+local rarity = "Legendary"
+local limited = false
+game.Players.LocalPlayer:GetMouse().KeyDown:Connect(function(key)
+if key == "u" then
+local scrollstand = lp.PlayerGui.HUD.Main.Frames.Stands
+local shiny
+
+local slot
+local va
+
+for _,slot12 in pairs(scrollstand.ScrollingFrame:GetChildren()) do
+if slot12.Name == neededslot then
+if slot12:FindFirstChild("Default") then
+for _,shiny1 in pairs(scrollstand:GetDescendants()) do 
+if shiny1.Name == "Shiny" then
+    if slot12:FindFirstChild("Default") then
+slot12.Default:Destroy()
+    end
+    if slot12.TextLabel:FindFirstChild("Default") then
+slot12.TextLabel.Default:Destroy()
+    end
+shiny1:Clone().Parent = slot12
+shiny1:Clone().Parent = slot12.TextLabel
+end
+end
+end
+slot12.TextLabel.Text = neededslot2 .. neededstand
+end
+end
+end
+end)
+
+local text
+
+if rarity == "Uncommon" then
+text = 'RARITY: <font color="rgb(177, 229, 166)">Uncommon</font>'
+elseif rarity == "Legendary" then
+text = 'RARITY: <font color="rgb(239, 184, 56)">Legendary</font>'
+end
+
+lp.PlayerGui.ChildAdded:Connect(function(a)
+if getgenv().i == true then
+if a.Name == "CosmeticTrade" then
+    wait()
+    a.Main.Stands.ScrollingFrame.UIGridLayout.SortOrder = 0
+print(1)
+local clone = a.Main.Stands:WaitForChild("Sample"):Clone()
+clone.Name = neededslot
+clone.Square:WaitForChild("Title").Text = neededstand
+clone.Parent = a.Main.Stands.ScrollingFrame
+clone.Square.Rarity.Text = text
+clone.Visible = true
+clone.Square.Quantity.Text = neededslot1
+if limited == true then
+clone.Square.Unique.Visible = true
+end
+
+if a.Main.Stands.ScrollingFrame:FindFirstChild("Stand") then
+local clone1 = a.Main.Stands.ScrollingFrame:FindFirstChild("Stand"):Clone()
+clone1.Name = "Slot0" --.Name = "Slot0"
+clone1.Parent = a.Main.Stands.ScrollingFrame
+print(1)
+wait()
+
+a.Main.Stands.ScrollingFrame:FindFirstChild("Stand").Visible = false
+end
+
+a.Main.Stands.ScrollingFrame.UIGridLayout.SortOrder = 0
+
+end
+end
+end)
